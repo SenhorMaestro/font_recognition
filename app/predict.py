@@ -65,6 +65,7 @@ while True:
     img_for_pred = test_transforms(img_for_pred)
 
     loaded_model = ConvNet()
+    loaded_model.eval()
     loaded_model.load_state_dict(torch.load('weights.pt', map_location=torch.device('cpu')))
     font_class = int(torch.argmax(loaded_model(img_for_pred.unsqueeze(0)), dim=1))
     probability = float(torch.softmax(loaded_model(img_for_pred.unsqueeze(0)), dim=1)[0][font_class])
